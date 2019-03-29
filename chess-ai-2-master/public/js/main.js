@@ -6,15 +6,17 @@ var makeMove = function(algo, skill) {
     return;
   }
   // Calculate the best move, using chosen algorithm
-  if (algo === 1) {
-    var move = randomMove();
-  } else if (algo === 2) {
-    var move = calcBestMoveOne(game.turn());
-  } else if (algo === 3) {
-    var move = calcBestMoveNoAB(skill, game, game.turn())[1];
-  } else {
-    var move = calcBestMove(skill, game, game.turn())[1];
-  }
+    if (algo === 1) {
+        var move = randomMove();
+    } else if (algo === 2) {
+        var move = calcBestMoveOne(game.turn());
+    } else if (algo === 3) {
+        var move = calcBestMoveNoAB(skill, game, game.turn())[1];
+    } else if (algo === 4) {
+        var move = calcBestMove(skill, game, game.turn())[1];
+    } else {
+        var move = eval_3(skill, game, game.turn())[1];
+    }
   // Make the calculated move
   game.move(move);
   // Update board positions
@@ -26,16 +28,13 @@ var playGame = function(algoW, algoB, skillW, skillB) {
   if (game.game_over() === true) {
 
     if(game.in_draw()){
-        console.log("Black")
+        console.log("Draw")
     }
 
-    else{
-      winners.push("draw");
+    else {
+        console.log("Black");
     }
 
-    game.reset();
-
-    //console.log('game over');
     return;
   }
 
@@ -43,21 +42,22 @@ var playGame = function(algoW, algoB, skillW, skillB) {
 
   if(game.game_over() === true){
 
-    if(game.in_draw()){
-        winners.push("White");
+      if (game.in_draw()) {
+          console.log("Draw");
     }
 
     else{
-      winners.push("draw");
+      console.log("White");
     }
 
-    game.reset();
+      return;
   }
   makeMove(algoB, skillB);
-
+        
   window.setTimeout(function() {
     playGame(algoW, algoB, skillW, skillB);
   }, 250);
+  if (game.game_over() === true) { return; }
 };
 
 // Handles what to do after human makes move.
@@ -74,7 +74,7 @@ var onDrop = function(source, target) {
   if (move === null) return 'snapback';
 
   // Log the move
-  console.log(move)
+  //console.log(move)
 
   // make move for black
   window.setTimeout(function() {
@@ -82,8 +82,12 @@ var onDrop = function(source, target) {
   }, 250);
 };
 
-var winners;
-var winningNums;
+var loopTheLoop = function(numGames){
+    for(var i = 0; i < numGames; i++) {
+    loopGames(1);
+    }
+}
+
 
 //loop multiple bots with different games against eachother
 //randome genreation of depth and algorithms
