@@ -28,11 +28,13 @@ var playGame = function(algoW, algoB, skillW, skillB) {
   if (game.game_over() === true) {
 
     if(game.in_draw()){
-        console.log("Draw")
+        console.log("Draw, White: Algorithm: eval_", algoW - 2, " Depth: ", skillW,
+            "## Black: Algorithm: eval_", algoB - 2, " Depth: ", skillB);
     }
 
     else {
-        console.log("Black");
+        console.log("Black, White: Algorithm: eval_", algoW - 2, " Depth: ", skillW,
+            "## Black: Algorithm: eval_", algoB - 2, " Depth: ", skillB);
     }
 
     return;
@@ -43,11 +45,13 @@ var playGame = function(algoW, algoB, skillW, skillB) {
   if(game.game_over() === true){
 
       if (game.in_draw()) {
-          console.log("Draw");
+          console.log("Draw, White: Algorithm: eval_", algoW - 2, " Depth: ", skillW,
+              "## Black: Algorithm: eval_", algoB - 2, " Depth: ", skillB);
     }
 
     else{
-      console.log("White");
+          console.log("White, White: Algorithm: eval_", algoW - 2, " Depth: ", skillW,
+              "## Black: Algorithm: eval_", algoB - 2, " Depth: ", skillB);
     }
 
       return;
@@ -82,30 +86,22 @@ var onDrop = function(source, target) {
   }, 250);
 };
 
-var loopTheLoop = function(numGames){
-    for(var i = 0; i < numGames; i++) {
-    loopGames(1);
-    }
-}
 
 
 //loop multiple bots with different games against eachother
 //randome genreation of depth and algorithms
-var loopGames = function(numGames){
-
-  for (var i =0; i < numGames; i++) {
-
+var runGames = function () {
     game.reset();
     board.clear();
     board.start();
+    var min = 3;
+    var max = 6;
+    var min2 = 1; 
+    var max2 = 4;
+    var bMethod = Math.floor(Math.random() * (+max - +min)) + +min;
+    var wMethod = Math.floor(Math.random() * (+max - +min)) + +min;
+    var bDepth = Math.floor(Math.random() * (+max2 - +min2)) + +min2;
+    var wDepth = Math.floor(Math.random() * (+max2 - +min2)) + +min2;
 
-    var bMethod = Math.floor(Math.random() * 2) + 1;
-    var wMethod = Math.floor(Math.random() * 2) + 1;
-    var bDepth = Math.floor(Math.random() * 2) + 1;
-    var wDepth = Math.floor(Math.random() * 2) + 1;
-
-    playGame(wMethod, bMethod, wDepth, bDepth);
-
-  }
-
+    playGame(+ wMethod, + bMethod, + wDepth, + bDepth);
 }

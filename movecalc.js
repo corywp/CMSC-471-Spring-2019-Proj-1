@@ -203,16 +203,38 @@ var evaluateBoard2 = function (board, color) {
             if (piece) { numPieces++; }
         });    
     });
-    console.log("there is: ", numPieces, " pieces")
-    // Sets the value for each piece using standard piece value
-    var pieceValue = {
-        'p': 100,
-        'n': 350,
-        'b': 350,
-        'r': 525,
-        'q': 1000,
-        'k': 10000
-    };
+    // Sets the value for each piece using standard piece value depending on the stage of the game
+    var pieceValue;
+    if (numPieces <= 10) {
+        pieceValue = {
+            'p': 300,
+            'n': 500,
+            'b': 700,
+            'r': 1000,
+            'q': 8000,
+            'k': 10000
+        };
+    }
+    else if (numPieces <= 18) {
+        pieceValue = {
+            'p': 250,
+            'n': 300,
+            'b': 700,
+            'r': 850,
+            'q': 5000,
+            'k': 10000
+        };
+    }
+    else {
+        pieceValue = {
+            'p': 100,
+            'n': 350,
+            'b': 350,
+            'r': 525,
+            'q': 1000,
+            'k': 10000
+        };
+    }
 
     // Loop through all pieces on the board and sum up total
     var value = 0;
