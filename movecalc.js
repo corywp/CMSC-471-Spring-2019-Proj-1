@@ -218,7 +218,7 @@ var evaluateBoard2 = function (board, color) {
     else if (numPieces <= 18) {
         pieceValue = {
             'p': 250,
-            'n': 300,
+            'n': 500,
             'b': 700,
             'r': 850,
             'q': 5000,
